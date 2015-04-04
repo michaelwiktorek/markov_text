@@ -29,6 +29,12 @@ class MarkovChain
     console.log("keys: ")
     console.log(i) for i of @dict
 
+  print_neighbors: (v) ->
+    len = @dict[v].length
+    console.log(len)
+    for i in [0..(len-1)]
+      console.log(@dict[v][i])
+
   # get last character of state
   last_char: (v) ->
     return v.slice(-1)

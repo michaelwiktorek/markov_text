@@ -13,10 +13,11 @@ class ChainManager
 
   # TODO make it cyclic
   build_chain: (text, k) ->
+    console.log("constructed new chain")
     @chain = new MarkovChain()
     @text = text
     @k = parseInt(k, 10)
-    for i in [0..text.length]
+    for i in [0..text.length - 1]
       # k-gram and overlapping k-gram
       if i < (text.length - @k)
         key = text.substring(i, i + @k)
@@ -29,9 +30,14 @@ class ChainManager
 
   # spit out text M characters long
   generate_text: (M) ->
+    m = parseInt(M, 10)
+    if not @chain?
+      alert "try building a markov chain first"
+      return ""
     state = @text.slice(0, @k)
+    #@chain.print_neighbors(state)
     output = "" + state
-    for i in [0..(M-@k)]
+    for i in [0..(m-@k-1)]
       state = @chain.next(state)
       if state == -1 or (not state?)
         return output
