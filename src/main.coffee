@@ -12,6 +12,6 @@ build_chain = ->
   manager.build_chain(text, k_val)
 
 build_text = ->
-  output = manager.generate_text(1000)
+  output = manager.generate_text(10000)
   div = document.querySelector("#output")
   div.innerHTML = output

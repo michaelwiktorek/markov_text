@@ -20,7 +20,9 @@ class MarkovChain
   next: (v) ->
     #console.log(v)
     len = @dict[v].length
+    #console.log("len " + len)
     rand = Math.floor(Math.random() * len)
+    #console.log("rand " + rand)
     return @dict[v][rand]
 
   print: ->

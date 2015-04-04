@@ -16,10 +16,15 @@ class ChainManager
     @chain = new MarkovChain()
     @text = text
     @k = parseInt(k, 10)
-    for i in [0..(text.length-@k-1)]
+    for i in [0..text.length]
       # k-gram and overlapping k-gram
-      key = text.substring(i, i + @k)
-      value = text.substring(i + 1, i + @k + 1)
+      if i < (text.length - @k)
+        key = text.substring(i, i + @k)
+        value = text.substring(i + 1, i + @k + 1)
+      else
+        diff = (i + @k) - text.length
+        key = text.substring(i, i + @k) + text.substring(0, diff)
+        value = text.substring(i + 1, i + @k + 1) + text.substring(0, diff + 1)
       @chain.add_transition(key, value)
 
   # spit out text M characters long
