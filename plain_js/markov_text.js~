@@ -1,0 +1,3 @@
+class MarkovChain {
+    constructor(height, width)
+}
