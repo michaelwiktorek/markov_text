@@ -66,7 +66,7 @@ class MarkovChain {
 	    if (state == -1 || !exists(state)) {
 		return output;
 	    }
-	    output = output + self.last_char(state);
+	    output = output + this.last_char(state);
 	}
 	return output;
     }
@@ -104,7 +104,7 @@ window.onload = function() {
     var build_text = function() {
 	var length = document.querySelector("#length").value;
 	var output = manager.generate_text(length);
-	div = document.querySelector("#output");
+	var div = document.querySelector("#output");
 	div.innerHTML = output;
     };
 
