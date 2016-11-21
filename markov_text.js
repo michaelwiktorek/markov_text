@@ -2,6 +2,10 @@ function exists(thing) {
     return typeof(thing) !== "undefined" && thing !== null;
 }
 
+function alert_no_chain() {
+    alert("You need to build a markov chain first!");
+}
+
 class MarkovChain {
     constructor(text, k) {
 	this.dict = {};
@@ -84,11 +88,19 @@ class Manager {
     generate_text(M) {
 	var m = parseInt(M, 10);
 	if (!exists(this.chain)) {
-	    alert("you need to build a markov chain first!");
+	    alert_no_chain();
 	    return "";
 	} else {
 	    return this.chain.generate_text(m);
 	}  
+    }
+
+    print_keys() {
+	if (exists(this.chain)) {
+	    this.chain.print()
+	}else {
+	    alert_no_chain();
+	}
     }
 }
 
