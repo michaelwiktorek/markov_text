@@ -1,0 +1,33 @@
+html {
+    background-color: lightgray;
+}
+
+.control {
+  display: block;
+}
+
+.main_div {
+  display: table;
+  padding: 10px;
+  background-color: #c0c0c0;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.main_div h2 {
+  margin: 0px;
+}
+
+#output {
+  border-radius: 5px;
+  background-color: white;
+  padding: 5px;
+}
+
+#output_container {
+  max-width: 80%;
+}
+
+#built {
+  display:none;
+}
