@@ -61,7 +61,7 @@ class MarkovChain {
     return v.slice(-1);
   }
 
-  generate_text(length) {
+  generate_text(length, pretty) {
     var m = parseInt(length, 10);
     var state = this.text.slice(0, this.k);
     var output = "" + state;
@@ -71,6 +71,24 @@ class MarkovChain {
         return output;
       }
       output = output + this.last_char(state);
+    }
+    // if pretty, end output on a full word (ish)
+    if (pretty && (this.text.includes(".") || this.text.includes("!") || this.text.includes("?"))) {
+      state = this.next(state);
+      if (state == -1 || !exists(state)) {
+        return output + extra_output;
+      }
+      var extra_output = this.last_char(state);
+      var end_char = this.last_char(state);
+      while (end_char != "." && end_char != "!" && end_char != "?") {
+        state = this.next(state);
+        if (state == -1 || !exists(state)) {
+          return output + extra_output;
+        }
+        extra_output += this.last_char(state);
+        end_char = this.last_char(state);
+      }
+      output += extra_output;
     }
     return output;
   }
@@ -85,13 +103,13 @@ class Manager {
     this.chain = new MarkovChain(text, parseInt(k, 10));
   }
 
-  generate_text(M) {
+  generate_text(M, pretty) {
     var m = parseInt(M, 10);
     if (!exists(this.chain)) {
       alert_no_chain();
       return "";
     } else {
-      return this.chain.generate_text(m);
+      return this.chain.generate_text(m, pretty);
     }  
   }
 
@@ -116,7 +134,8 @@ window.onload = function() {
 
   var build_text = function() {
     var length = document.querySelector("#length").value;
-    var output = manager.generate_text(length);
+    var pretty = document.querySelector("#pretty_end").checked;
+    var output = manager.generate_text(length, pretty);
     var div = document.querySelector("#output");
     div.innerHTML = output;
   };
